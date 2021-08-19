@@ -11,7 +11,8 @@ function App() {
   const [timeLimit, settimeLimit] = useState(30)
   const [timeString, settimeString] = useState('')
   const [timer, settimer] = useState(null)
-
+  const [startTime, setstartTime] = useState(null)
+  // const [score, setscore] = useState(0)
 
 
 
@@ -40,65 +41,87 @@ function App() {
     // console.log('duparr',dupArr)
     // console.log('numarr',numArr)
     setgridArray(matrix)
-    startTimer()
+
   }, [level, flag])
 
 
-  const startTimer = ()=>{
+  const startTimer = (timerFlag)=>{
     if(timer){
       clearInterval(timer)
       settimer(null)
     }
-    let date = new Date()
-    date.setSeconds(date.getSeconds()+timeLimit)
 
-    var countDownDate = new Date(date).getTime();
+    if(timerFlag == true){
 
-    function timerFunction (){
-      var now = new Date().getTime();
-      var distance = countDownDate - now;
-      
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-      settimeString(`${days ? days+" : " : ''} ${hours ? hours+" : " : ''} ${minutes} : ${seconds} `)
-        
-      if (distance < 0) {
-        clearInterval(x);
-        onGameOver(false)
+      let date = new Date()
+      date.setSeconds(date.getSeconds()+timeLimit)
+  
+      var countDownDate = new Date(date).getTime();
+      setstartTime(countDownDate)
+ 
+      function timerFunction (){
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+    
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+        settimeString(`${days ? days+" d " : ''} ${hours ? hours+" h " : ''} ${minutes} m ${seconds} s`)
+          
+        if (distance < 0) {
+          clearInterval(x);
+          onGameOver(false)
+        }
       }
+  
+      var x = setInterval(timerFunction , 1000);
+      settimer(x)
+      // clearInterval(x);
+      // onGameOver(false)
     }
+  }
 
-    var x = setInterval(timerFunction , 1000);
-    settimer(x)
-    // clearInterval(x);
-    // onGameOver(false)
+  const startGame=()=>{
+    setflag(flag => !flag)
+    startTimer(true)
   }
 
 
-  const reset = ()=>{
+  const reset = (timerFlag)=>{
     setflag(flag => !flag)
-    resetTimer()
+    setstartTime(null)
+    resetTimer(timerFlag)
   }
 
   const onGameOver = (winnerFlag) =>{
-    let statement = winnerFlag == true ? `Congrats!! You won the game, your score is ${2}` : `Sorry time is over!`
-    statement += '\nWould you like to play again ?';
+ 
+    var now = new Date().getTime();
+    var distance = startTime - now;
+    let score = distance/1000
 
-    if(window.confirm(statement)){
-      console.log('yes')
-      reset()
-    }else{
-      console.log('no')
-    }
+    setTimeout(()=>{
+      let statement = startTime ? winnerFlag == true ? `Congrats!! You won the game, your score is ${score}` : `Sorry time is over!` : 'This was a practice game. \nTo play game for score, please click on start.';
+      if( startTime != null){
+        statement += '\nWould you like to play again ?' ;
+      }
+  
+      if(window.confirm(statement)){
+        // console.log('yes')
+        reset()
+      }else{
+        // console.log('no')
+        reset(false)
+      }
+
+    },800)
   }
 
-  const resetTimer = ()=>{
-
+  const resetTimer = (timerFlag)=>{
     settimeString('')
-    startTimer()
+    startTimer(timerFlag)
+    setstartTime(null)
   }
 
 
@@ -146,7 +169,13 @@ function App() {
               <option value={10}>Hard (10X10)</option>
             </select>
           </div>
-          <h1 style={{ marginBottom: '20px' }}>{timeString}</h1>
+          <h2 style={{ marginBottom: '20px' }}>{timeString}</h2>
+          <div style={{ marginLeft: '10px' }}>
+            <button 
+            onClick={()=>{
+              startGame(true)
+            }}>Start</button>
+          </div>
           <div style={{ marginLeft: '10px' }}>
             <button onClick={reset}>Restart</button>
           </div>

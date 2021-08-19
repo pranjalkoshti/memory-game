@@ -41,7 +41,7 @@ const Grid = (props) => {
         }
     }
 
-
+let icons = ['male','female', 'human', 'identicon', 'initials', 'bottts', 'avataaars', 'jdenticon', 'gridy' , 'micah']
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -62,8 +62,12 @@ const Grid = (props) => {
                                             <div class="flip-card-front">
                                             </div>
                                             <div class="flip-card-back">
-                                                {/* <img src="https://avatars.dicebear.com/api/bottts/seed-9.svg" height="auto" width={96} alt="Avatar" /> */}
-                                                <div style={{position:'absolute'}}>{colItem}</div>
+                                                {icons[colItem-1] ? 
+                                                 <img src={`https://avatars.dicebear.com/api/${icons[colItem-1]}/john.svg?background=%230000ff`} height="auto" width={96} alt="Avatar" />
+                                                 :
+                                                 <h4 style={{fontSize:'25px'}}>{colItem}</h4>
+                                                }
+                                                {/* <div style={{position:'absolute'}}>{colItem}</div> */}
                                             </div>
                                         </div>
                                     </div>
