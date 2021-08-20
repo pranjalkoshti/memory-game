@@ -1,5 +1,15 @@
 # React Coding Challenge
 
+
+#### NOTES
+- Currently this solution is build for symmetrical grids only.
+- There are five difficulty levels of game with different grid size and timer accordingly.
+- To start the game user must click on start. 
+- On click of reset, game will reset to initial state, but to play the game user have to click on start.
+- Without the timer also user can play the game as practice game, but there will be no score. At the end of practice game, alert is displayed stating this was a practice game.
+- At the higher level of game, due to lack of time to fully understand the user guide of dicebear for avatars, numbers are displayed when images are not available, matching tiles will have matching numbers. 
+- I do not have much experience with testing framework as of now so only few ui tests are written. 
+
 ## Introduction
 This project is a bare-bones React/Typescript template. Candidates who are invited to solve the coding challenge are required to clone this repository and implement any components/hooks/modules/tests they deem necessary for a good design. This challenge is confidential and candidates should keep cloned repositories private. Once implemented, candidates are expected to provide private access to their interviewer(s) for code review.
 
@@ -72,11 +82,3 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 
-#### NOTES
-- Currently this solution is build for symmetrical grids only.
-- There are five difficulty levels of game with different grid size and timer accordingly.
-- To start the game user must click on start. 
-- On click of reset, game will reset to initial state, but to play the game user have to click on start.
-- Without the timer also user can play the game as practice game, but there will be no score. At the end of practice game, alert is displayed stating this was a practice game.
-- At the higher level of game, due to lack of time to fully understand the user guide of dicebear for avatars, numbers are displayed when images are not available, matching tiles will have matching numbers. 
-- I do not have much experience with testing framework as of now so only few ui tests are written. 
