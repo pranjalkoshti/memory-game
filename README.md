@@ -2,7 +2,7 @@
 
 
 #### NOTES
-- Currently this solution is build for symmetrical grids only eg. [2X2].
+- Currently this solution is build for symmetrical grids only eg. [2X2], [4X4].
 - There are five difficulty levels of game with different grid sizes and timer accordingly.
 - To start the game user must click on start. 
 - On click of reset, game will reset to initial state, but to play the game user have to click on start.
