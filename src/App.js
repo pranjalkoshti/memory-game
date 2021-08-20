@@ -15,9 +15,9 @@ function App() {
   // const [score, setscore] = useState(0)
 
 
-
-
   useEffect(() => {
+
+    // ------------------ symmetrical grid 
     let num = level;
     let num1 = ((num * num) / 2);
     let numArr = new Array(num1).fill(null).map((i, k) => k + 1);
@@ -102,7 +102,7 @@ function App() {
     let score = distance/1000
 
     setTimeout(()=>{
-      let statement = startTime ? winnerFlag == true ? `Congrats!! You won the game, your score is ${score}` : `Sorry time is over!` : 'This was a practice game. \nTo play game for score, please click on start.';
+      let statement = startTime ? winnerFlag == true ? `Congrats!! You won the game, your score is ${score}` : `Sorry time is over!` : 'Thanks for playing a practice game. \nTo play game for score, please click on start.';
       if( startTime != null){
         statement += '\nWould you like to play again ?' ;
       }
@@ -136,7 +136,7 @@ function App() {
       <div style={{ width: '40%', margin: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ marginRight: '10px' }}>
-            <select name="difficulty" id="difficulty" value={level}
+            <select role="difficulty-select" name="difficulty" id="difficulty" value={level}
             onChange={(e)=>{
               let value = parseInt(e.target.value);
               setlevel(parseInt(value))
@@ -169,15 +169,17 @@ function App() {
               <option value={10}>Hard (10X10)</option>
             </select>
           </div>
-          <h2 style={{ marginBottom: '20px' }}>{timeString}</h2>
-          <div style={{ marginLeft: '10px' }}>
-            <button 
+          {timeString && 
+          <h2 role="timer" style={{ marginBottom: '20px' }}>{timeString}</h2>
+          }
+          <div dat="start-btn" style={{ marginLeft: '10px' }}>
+            <button role="start-btn"
             onClick={()=>{
               startGame(true)
             }}>Start</button>
           </div>
           <div style={{ marginLeft: '10px' }}>
-            <button onClick={reset}>Restart</button>
+            <button role="reset-btn" onClick={reset}>Reset</button>
           </div>
         </div>
         <Grid gridArray={gridArray} flag={flag} level={level} onGameOver={onGameOver}/>
